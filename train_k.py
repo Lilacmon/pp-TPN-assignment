@@ -157,7 +157,7 @@ feeder = fluid.DataFeeder(feed_list=[img, label], place=place)
 #训练并保存模型    
 EPOCH_NUM = 1  # 20  
 
-for pass_id in range(EPOCH_NUM): 
+for pass_id in range(EPOCH_NUM):
     # 开始训练
     for batch_id, data in enumerate(train_reader()):                        #遍历train_reader的迭代器，并为数据加上索引batch_id
         train_lost, train_loss_cls, train_loss_aux, train_acc_cls,\
