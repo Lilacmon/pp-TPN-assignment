@@ -95,8 +95,6 @@ def parse_losses(losses):
     loss = sum(_value for _key, _value in log_vars.items() if 'loss' in _key)
 
     log_vars['loss'] = loss
-    # for name in log_vars:
-    #     log_vars[name] = log_vars[name].item()
 
     return loss, log_vars
 
@@ -158,9 +156,8 @@ feeder = fluid.DataFeeder(feed_list=[img, label], place=place)
 
 #训练并保存模型    
 EPOCH_NUM = 1  # 20  
-# step = 0
 
-for pass_id in range(EPOCH_NUM):   # range(6, 27)   range(EPOCH_NUM)
+for pass_id in range(EPOCH_NUM): 
     # 开始训练
     for batch_id, data in enumerate(train_reader()):                        #遍历train_reader的迭代器，并为数据加上索引batch_id
         train_lost, train_loss_cls, train_loss_aux, train_acc_cls,\
@@ -168,11 +165,9 @@ for pass_id in range(EPOCH_NUM):   # range(6, 27)   range(EPOCH_NUM)
                              feed=feeder.feed(data),                        #喂入一个batch的数据
                              fetch_list=[loss, log_vars['loss_cls'], log_vars['loss_aux'],\
                               acc['acc_cls'], acc['acc_aux']])                    #fetch均方误差和准确率
-        # step += 1
         
         #每100次batch打印一次训练、进行一次测试
-        if batch_id % 100 == 0:                                             
-            # print('Pass:%d, Batch:%d, Cost:%0.5f, Accuracy:%0.5f' % (pass_id, batch_id, train_lost[0], train_acc[0]))
+        if batch_id % 100 == 0:
             print('Pass:%d, Batch:%d, loss:%0.5f, loss_cls:%0.5f, loss_aux:%0.5f, acc_cls:%0.5f, acc_aux:%0.5f' % (
                     pass_id, batch_id,
                     train_lost[0], train_loss_cls[0], train_loss_aux[0],
