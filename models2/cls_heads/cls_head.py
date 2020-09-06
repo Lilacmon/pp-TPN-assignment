@@ -42,8 +42,7 @@ class ClsHead():
 
         if self.dropout_ratio != 0:
             x = fluid.layers.dropout(x=x, dropout_prob=self.dropout_ratio)
-        
-        # x = fluid.layers.reshape(x=x, shape=[x.shape[0], -1])
+            
         x = fluid.layers.reshape(x=x, shape=[x.shape[0], x.shape[1] * x.shape[2] * x.shape[3] * x.shape[4]])
         cls_score = fluid.layers.fc(input=x, size=self.num_classes)
         
@@ -61,17 +60,3 @@ class ClsHead():
 
         return losses, acc
 
-
-if __name__ == '__main__': 
-    cls_head=dict(
-            with_avg_pool=False,
-            temporal_feature_size=1,
-            spatial_feature_size=1,
-            dropout_ratio=0.5,
-            in_channels=2048,
-            num_classes=400)
-    a = ClsHead(**cls_head)
-    data_shape = [2048, 1, 1, 1]
-    img = fluid.layers.data(name='images', shape=data_shape, dtype='float32')
-    x = a.net(img) 
-    print(x.shape) # [2, 400]
