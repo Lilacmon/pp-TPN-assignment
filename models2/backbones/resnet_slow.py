@@ -197,14 +197,6 @@ class ResNet_SlowFast():
             pool_stride=(self.pool1_stride_t, 2, 2), pool_padding=(self.pool1_kernel_t // 2, 1, 1))
 
         outs = []
-        # for i, layer_name in enumerate(self.res_layers):
-        # i = 0
-        # for res_layer in self.res_layers:
-        #     # res_layer = getattr(self, layer_name)
-        #     x = res_layer(x)
-        #     if i in self.out_indices:
-        #         outs.append(x)
-        #     i += 1
         for i, num_blocks in enumerate(self.stage_blocks):
             spatial_stride = self.spatial_strides[i]
             temporal_stride = self.temporal_strides[i]
@@ -236,27 +228,3 @@ class ResNet_SlowFast():
         else:
             return tuple(outs)
 
-if __name__ == '__main__':
-    
-    network = ResNet_SlowFast(
-                depth=50,
-                num_stages=4,
-                out_indices=[2, 3],
-                frozen_stages=-1,
-                inflate_freq=(0, 0, 1, 1),
-                inflate_style='3x1x1',
-                conv1_kernel_t=1,
-                conv1_stride_t=1,
-                pool1_kernel_t=1,
-                pool1_stride_t=1,
-                with_cp=True,
-                bn_eval=False,
-                partial_bn=False,
-                style='paddle')
-    # img = np.zeros([1, 3, 32, 224, 224]).astype('float32')
-    # img = fluid.dygraph.to_variable(img)
-    data_shape = [3, 32, 224, 224]
-    img = fluid.layers.data(name='images', shape=data_shape, dtype='float32')
-    outs = network.net(img)
-    print(outs)
-    print(outs[0].shape, outs[1].shape)
