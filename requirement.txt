@@ -1,1 +1,4 @@
-ssssssssssss
+1. 入口文件为train_k.py,里面包括数据集的解压，模型的训练和测试；
+2. 数据集采用kinetics400;
+3.模型在models2文件夹中，其中TSN3D.py是模型的主要文件；
+4.通过reader.py读取数据，主要是通过decode_mp4方法读取视频文件。
