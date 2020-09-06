@@ -1,4 +1,271 @@
+
+【论文复现】之TPN的复现，使用PaddlePaddle的静态图模式进行编码。
+
 1. 入口文件为train_k.py,里面包括数据集的解压，模型的训练和测试；
 2. 数据集采用kinetics400;
-3.模型在models2文件夹中，其中TSN3D.py是模型的主要文件；
-4.通过reader.py读取数据，主要是通过decode_mp4方法读取视频文件。
+3. 模型在models2文件夹中，其中TSN3D.py是模型的主要文件；
+4. 通过reader.py读取数据，主要是通过decode_mp4方法读取视频文件。
+5. 采用百度AI Studio 平台编码，项目地址为https://aistudio.baidu.com/aistudio/clusterprojectdetail/794838
+6. 具体编码为版本TPN4-k400-1 2020-09-02 23:42:36。
+7. 模型跑通采用脚本环境，使用4卡，结果可在“历史任务”中的（任务编号 22629，提交时间2020-09-02 23:42:36 ，状态为已完成，备注为TPN4-k400-1 ）处查看日志和下载模型，由于个别视频没有内容，所以在训练中会报告具体哪些视频有误，之后会去除这些视频地址，进行训练；下面是跑了一轮的日志，最后test的acc为0.05364。
+
+Pass:0, Batch:0, loss:9.01198, loss_cls:5.99431, loss_aux:3.01767, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:100, loss:8.86434, loss_cls:5.92182, loss_aux:2.94251, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:200, loss:8.48290, loss_cls:5.53713, loss_aux:2.94577, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:300, loss:9.06008, loss_cls:6.00696, loss_aux:3.05312, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 00:42:52,327-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/shaving_head/_M6Ko0yRfD4_000097_000107.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/shaving_head/_M6Ko0yRfD4_000097_000107.mp4
+Pass:0, Batch:400, loss:9.32926, loss_cls:6.28198, loss_aux:3.04727, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 00:53:21,467-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/picking_fruit/NLf-rU1wlTY_000161_000171.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/picking_fruit/NLf-rU1wlTY_000161_000171.mp4
+Pass:0, Batch:500, loss:8.93970, loss_cls:5.95775, loss_aux:2.98195, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:600, loss:9.03279, loss_cls:5.99812, loss_aux:3.03468, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 01:07:41,418-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/clean_and_jerk/zrpjA-ZKGEA_000105_000115.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/clean_and_jerk/zrpjA-ZKGEA_000105_000115.mp4
+Pass:0, Batch:700, loss:7.83531, loss_cls:5.19324, loss_aux:2.64207, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:800, loss:9.01452, loss_cls:6.01062, loss_aux:3.00390, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:900, loss:8.37423, loss_cls:5.54792, loss_aux:2.82631, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1000, loss:8.50745, loss_cls:5.63382, loss_aux:2.87363, acc_cls:0.25000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 01:38:08,814-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/hitting_baseball/uz5cIbBTf4Y_000049_000059.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/hitting_baseball/uz5cIbBTf4Y_000049_000059.mp4
+Pass:0, Batch:1100, loss:8.36215, loss_cls:5.57796, loss_aux:2.78419, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1200, loss:8.76934, loss_cls:5.94144, loss_aux:2.82791, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1300, loss:9.75438, loss_cls:6.52540, loss_aux:3.22898, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1400, loss:8.41357, loss_cls:5.71676, loss_aux:2.69681, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1500, loss:8.71948, loss_cls:5.82489, loss_aux:2.89459, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1600, loss:8.53471, loss_cls:5.63443, loss_aux:2.90027, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1700, loss:9.17387, loss_cls:6.20229, loss_aux:2.97158, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 02:40:48,429-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/tap_dancing/1_nxfkY76mk_000001_000011.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/tap_dancing/1_nxfkY76mk_000001_000011.mp4
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 02:42:08,498-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/playing_tennis/efTAWmCkLKE_000418_000428.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/playing_tennis/efTAWmCkLKE_000418_000428.mp4
+Pass:0, Batch:1800, loss:7.58059, loss_cls:4.97195, loss_aux:2.60864, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:1900, loss:8.77503, loss_cls:5.83745, loss_aux:2.93758, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2000, loss:8.96848, loss_cls:5.86158, loss_aux:3.10691, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2100, loss:7.74915, loss_cls:5.15258, loss_aux:2.59657, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2200, loss:7.90675, loss_cls:5.28774, loss_aux:2.61902, acc_cls:0.25000, acc_aux:0.00000
+Pass:0, Batch:2300, loss:9.05656, loss_cls:5.93464, loss_aux:3.12192, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 03:31:29,477-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/dancing_ballet/7x6LxAdMgb0_000118_000128.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/dancing_ballet/7x6LxAdMgb0_000118_000128.mp4
+Pass:0, Batch:2400, loss:9.81889, loss_cls:6.61684, loss_aux:3.20205, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2500, loss:9.19295, loss_cls:6.04997, loss_aux:3.14298, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2600, loss:9.18332, loss_cls:6.22079, loss_aux:2.96253, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2700, loss:9.48303, loss_cls:6.35933, loss_aux:3.12370, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2800, loss:8.25251, loss_cls:5.55810, loss_aux:2.69442, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:2900, loss:7.74559, loss_cls:5.19908, loss_aux:2.54652, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3000, loss:8.00137, loss_cls:5.20743, loss_aux:2.79394, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 04:34:03,693-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/wrapping_present/rKJk6ws2sGs_000103_000113.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/wrapping_present/rKJk6ws2sGs_000103_000113.mp4
+Pass:0, Batch:3100, loss:7.43488, loss_cls:4.88487, loss_aux:2.55001, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3200, loss:8.53465, loss_cls:5.67516, loss_aux:2.85949, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 04:55:46,587-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/sweeping_floor/EuGXJiVQwCg_000005_000015.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/sweeping_floor/EuGXJiVQwCg_000005_000015.mp4
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 05:00:05,956-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/catching_fish/DSNcuU-e8bU_000021_000031.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/catching_fish/DSNcuU-e8bU_000021_000031.mp4
+Pass:0, Batch:3300, loss:9.73728, loss_cls:6.50273, loss_aux:3.23456, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3400, loss:8.48456, loss_cls:5.66371, loss_aux:2.82084, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3500, loss:9.06378, loss_cls:5.98682, loss_aux:3.07695, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3600, loss:8.83503, loss_cls:5.84240, loss_aux:2.99262, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3700, loss:7.99856, loss_cls:5.18848, loss_aux:2.81008, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3800, loss:7.39116, loss_cls:4.84798, loss_aux:2.54318, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:3900, loss:8.03437, loss_cls:5.56684, loss_aux:2.46753, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4000, loss:8.90968, loss_cls:5.92821, loss_aux:2.98147, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 06:19:37,542-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/tai_chi/LlflsbkvcKw_000090_000100.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/tai_chi/LlflsbkvcKw_000090_000100.mp4
+Pass:0, Batch:4100, loss:9.66016, loss_cls:6.44439, loss_aux:3.21578, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4200, loss:8.16321, loss_cls:5.42670, loss_aux:2.73651, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4300, loss:7.77804, loss_cls:5.17633, loss_aux:2.60171, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 06:50:37,598-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/air_drumming/CUxsn4YXksI_000119_000129.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/air_drumming/CUxsn4YXksI_000119_000129.mp4
+Pass:0, Batch:4400, loss:7.71055, loss_cls:5.09972, loss_aux:2.61083, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4500, loss:9.22389, loss_cls:6.18815, loss_aux:3.03575, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 07:05:17,049-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/bungee_jumping/oyj6TFAxpiw_000229_000239.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/bungee_jumping/oyj6TFAxpiw_000229_000239.mp4
+Pass:0, Batch:4600, loss:8.35817, loss_cls:5.53504, loss_aux:2.82313, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4700, loss:8.53067, loss_cls:5.62316, loss_aux:2.90752, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4800, loss:8.38467, loss_cls:5.63728, loss_aux:2.74739, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:4900, loss:8.11892, loss_cls:5.25459, loss_aux:2.86433, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 07:38:33,139-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/sailing/99ABSLQdgUc_000046_000056.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/sailing/99ABSLQdgUc_000046_000056.mp4
+Pass:0, Batch:5000, loss:8.49118, loss_cls:5.69070, loss_aux:2.80048, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5100, loss:9.22252, loss_cls:6.09514, loss_aux:3.12738, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5200, loss:7.95863, loss_cls:5.18948, loss_aux:2.76915, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5300, loss:9.05575, loss_cls:5.97667, loss_aux:3.07908, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5400, loss:6.66583, loss_cls:4.29438, loss_aux:2.37145, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5500, loss:9.08326, loss_cls:6.34470, loss_aux:2.73856, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5600, loss:6.95069, loss_cls:4.60025, loss_aux:2.35045, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:5700, loss:7.86328, loss_cls:5.21782, loss_aux:2.64547, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5800, loss:9.04420, loss_cls:5.96246, loss_aux:3.08174, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:5900, loss:7.48697, loss_cls:4.79868, loss_aux:2.68829, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 09:10:44,481-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/spray_painting/OvMUfpc3nHw_000060_000070.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/spray_painting/OvMUfpc3nHw_000060_000070.mp4
+Pass:0, Batch:6000, loss:6.91366, loss_cls:4.37858, loss_aux:2.53508, acc_cls:0.25000, acc_aux:0.00000
+Pass:0, Batch:6100, loss:8.55794, loss_cls:5.73793, loss_aux:2.82001, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:6200, loss:7.73968, loss_cls:5.10480, loss_aux:2.63488, acc_cls:0.25000, acc_aux:0.00000
+Pass:0, Batch:6300, loss:7.72879, loss_cls:5.07706, loss_aux:2.65173, acc_cls:0.00000, acc_aux:0.25000
+Pass:0, Batch:6400, loss:8.33899, loss_cls:5.50041, loss_aux:2.83857, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:6500, loss:7.20705, loss_cls:4.81708, loss_aux:2.38997, acc_cls:0.00000, acc_aux:0.25000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 10:08:07,235-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/salsa_dancing/nfjWfoyGApo_000220_000230.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/salsa_dancing/nfjWfoyGApo_000220_000230.mp4
+Pass:0, Batch:6600, loss:7.32952, loss_cls:4.96961, loss_aux:2.35991, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:6700, loss:8.79730, loss_cls:5.86057, loss_aux:2.93673, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:6800, loss:8.75339, loss_cls:5.73445, loss_aux:3.01894, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:6900, loss:6.68012, loss_cls:4.21424, loss_aux:2.46588, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7000, loss:7.02521, loss_cls:4.56737, loss_aux:2.45783, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7100, loss:8.10476, loss_cls:5.42416, loss_aux:2.68060, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7200, loss:6.61121, loss_cls:4.40330, loss_aux:2.20792, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7300, loss:6.94930, loss_cls:4.50765, loss_aux:2.44165, acc_cls:0.00000, acc_aux:0.25000
+Pass:0, Batch:7400, loss:8.54022, loss_cls:5.73246, loss_aux:2.80776, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7500, loss:6.00240, loss_cls:3.95134, loss_aux:2.05106, acc_cls:0.25000, acc_aux:0.50000
+Pass:0, Batch:7600, loss:7.51148, loss_cls:4.99160, loss_aux:2.51988, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7700, loss:7.92577, loss_cls:5.19190, loss_aux:2.73387, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7800, loss:6.52341, loss_cls:4.23246, loss_aux:2.29096, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:7900, loss:8.05342, loss_cls:5.27735, loss_aux:2.77608, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:8000, loss:6.65450, loss_cls:4.39922, loss_aux:2.25527, acc_cls:0.25000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 12:20:56,263-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/riding_mountain_bike/w5ax4GiTkKg_000088_000098.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/riding_mountain_bike/w5ax4GiTkKg_000088_000098.mp4
+Pass:0, Batch:8100, loss:7.34942, loss_cls:4.74099, loss_aux:2.60843, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 12:24:48,256-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/playing_paintball/zUZm-IvpnTo_000176_000186.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/playing_paintball/zUZm-IvpnTo_000176_000186.mp4
+Pass:0, Batch:8200, loss:7.71834, loss_cls:5.12296, loss_aux:2.59538, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:8300, loss:8.46722, loss_cls:5.58014, loss_aux:2.88708, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:8400, loss:7.27979, loss_cls:4.84753, loss_aux:2.43227, acc_cls:0.25000, acc_aux:0.25000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 12:51:41,434-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/snatch_weight_lifting/GajaQD6qRkw_000057_000067.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/snatch_weight_lifting/GajaQD6qRkw_000057_000067.mp4
+Pass:0, Batch:8500, loss:7.51885, loss_cls:4.88407, loss_aux:2.63478, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:8600, loss:7.70482, loss_cls:5.12634, loss_aux:2.57848, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:8700, loss:8.85330, loss_cls:6.00917, loss_aux:2.84413, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 13:16:41,313-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/playing_paintball/SZtj2TEWiHc_000195_000205.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/playing_paintball/SZtj2TEWiHc_000195_000205.mp4
+Pass:0, Batch:8800, loss:6.58200, loss_cls:4.29236, loss_aux:2.28965, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:8900, loss:9.47528, loss_cls:6.41346, loss_aux:3.06182, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:9000, loss:7.86922, loss_cls:5.24044, loss_aux:2.62878, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 13:42:10,610-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/crossing_river/LSRil2XG1UU_000191_000201.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/crossing_river/LSRil2XG1UU_000191_000201.mp4
+Pass:0, Batch:9100, loss:9.57596, loss_cls:6.41953, loss_aux:3.15643, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 13:44:50,799-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/ice_skating/9D0o8lh8oeY_002353_002363.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/ice_skating/9D0o8lh8oeY_002353_002363.mp4
+Pass:0, Batch:9200, loss:6.99260, loss_cls:4.60375, loss_aux:2.38884, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:9300, loss:7.39601, loss_cls:4.84518, loss_aux:2.55082, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:9400, loss:7.90193, loss_cls:5.26765, loss_aux:2.63428, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 14:07:11,521-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/cleaning_gutters/pM9KHPPo6oE_000046_000056.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/cleaning_gutters/pM9KHPPo6oE_000046_000056.mp4
+Pass:0, Batch:9500, loss:6.28576, loss_cls:4.21360, loss_aux:2.07216, acc_cls:0.00000, acc_aux:0.25000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 14:18:35,515-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/spinning_poi/5_gyoV_sQXU_000001_000011.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/spinning_poi/5_gyoV_sQXU_000001_000011.mp4
+Pass:0, Batch:9600, loss:6.54795, loss_cls:4.39351, loss_aux:2.15445, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:9700, loss:6.07207, loss_cls:4.00488, loss_aux:2.06719, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:9800, loss:4.70914, loss_cls:3.10126, loss_aux:1.60789, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:9900, loss:7.24912, loss_cls:4.77259, loss_aux:2.47653, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:10000, loss:6.35063, loss_cls:4.13839, loss_aux:2.21224, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:10100, loss:7.23366, loss_cls:4.83881, loss_aux:2.39485, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 15:05:49,623-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/trapezing/_Lw6CGMq4nc_000120_000130.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/trapezing/_Lw6CGMq4nc_000120_000130.mp4
+Pass:0, Batch:10200, loss:8.13564, loss_cls:5.29767, loss_aux:2.83797, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:10300, loss:7.87365, loss_cls:5.24013, loss_aux:2.63352, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:10400, loss:7.12185, loss_cls:4.57461, loss_aux:2.54724, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:10500, loss:8.27374, loss_cls:5.52712, loss_aux:2.74662, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:10600, loss:8.24243, loss_cls:5.44461, loss_aux:2.79782, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:10700, loss:6.74668, loss_cls:4.43653, loss_aux:2.31015, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 16:03:07,100-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/bowling/OErKBwdGJIk_000057_000067.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/bowling/OErKBwdGJIk_000057_000067.mp4
+Pass:0, Batch:10800, loss:8.15836, loss_cls:5.41853, loss_aux:2.73983, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:10900, loss:7.28318, loss_cls:4.82034, loss_aux:2.46284, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 16:11:51,049-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/motorcycling/aj1bmhf-IyU_000118_000128.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/motorcycling/aj1bmhf-IyU_000118_000128.mp4
+Pass:0, Batch:11000, loss:6.95287, loss_cls:4.56963, loss_aux:2.38324, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:11100, loss:6.80940, loss_cls:4.63363, loss_aux:2.17577, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 16:33:35,182-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/dying_hair/jHODDw65G4A_000085_000095.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/dying_hair/jHODDw65G4A_000085_000095.mp4
+Pass:0, Batch:11200, loss:8.18964, loss_cls:5.57352, loss_aux:2.61612, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:11300, loss:6.49382, loss_cls:4.32182, loss_aux:2.17200, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:11400, loss:5.81319, loss_cls:3.65702, loss_aux:2.15618, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:11500, loss:6.75079, loss_cls:4.36973, loss_aux:2.38105, acc_cls:0.25000, acc_aux:0.00000
+Pass:0, Batch:11600, loss:6.95504, loss_cls:4.75272, loss_aux:2.20232, acc_cls:0.00000, acc_aux:0.25000
+Pass:0, Batch:11700, loss:8.71807, loss_cls:5.86822, loss_aux:2.84986, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 17:19:42,607-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/assembling_computer/xxUezLcXkDs_000256_000266.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/assembling_computer/xxUezLcXkDs_000256_000266.mp4
+Pass:0, Batch:11800, loss:7.54865, loss_cls:4.89841, loss_aux:2.65024, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:11900, loss:7.97318, loss_cls:5.16455, loss_aux:2.80862, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 17:32:47,867-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/deadlifting/Hm8X9u8jtOk_000022_000032.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/deadlifting/Hm8X9u8jtOk_000022_000032.mp4
+Pass:0, Batch:12000, loss:7.98412, loss_cls:5.22458, loss_aux:2.75954, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:12100, loss:6.34380, loss_cls:4.33136, loss_aux:2.01244, acc_cls:0.25000, acc_aux:0.25000
+Pass:0, Batch:12200, loss:7.69963, loss_cls:5.10017, loss_aux:2.59946, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 18:01:19,850-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/punching_bag/ixQrfusr6k8_000001_000011.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/punching_bag/ixQrfusr6k8_000001_000011.mp4
+Pass:0, Batch:12300, loss:8.18517, loss_cls:5.46172, loss_aux:2.72345, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:12400, loss:7.25910, loss_cls:4.76341, loss_aux:2.49569, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:12500, loss:5.70719, loss_cls:3.83120, loss_aux:1.87599, acc_cls:0.25000, acc_aux:0.50000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 18:19:04,967-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/dying_hair/fNFXTBUF3nY_000230_000240.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/dying_hair/fNFXTBUF3nY_000230_000240.mp4
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 18:22:41,258-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/snowkiting/pDPbETciXhw_000167_000177.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/snowkiting/pDPbETciXhw_000167_000177.mp4
+Pass:0, Batch:12600, loss:7.37840, loss_cls:4.89486, loss_aux:2.48355, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:12700, loss:8.42360, loss_cls:5.70142, loss_aux:2.72219, acc_cls:0.00000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 18:42:40,342-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/playing_recorder/bgCrldl9pQ8_000027_000037.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/playing_recorder/bgCrldl9pQ8_000027_000037.mp4
+Pass:0, Batch:12800, loss:8.15120, loss_cls:5.47258, loss_aux:2.67862, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:12900, loss:9.13987, loss_cls:6.21279, loss_aux:2.92708, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13000, loss:6.77817, loss_cls:4.41689, loss_aux:2.36129, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13100, loss:8.61112, loss_cls:5.72418, loss_aux:2.88694, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13200, loss:8.52797, loss_cls:5.67453, loss_aux:2.85344, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13300, loss:7.35010, loss_cls:4.75603, loss_aux:2.59407, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13400, loss:5.66292, loss_cls:3.70351, loss_aux:1.95941, acc_cls:0.00000, acc_aux:0.50000
+Pass:0, Batch:13500, loss:6.90436, loss_cls:4.60965, loss_aux:2.29471, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13600, loss:7.07618, loss_cls:4.61324, loss_aux:2.46294, acc_cls:0.25000, acc_aux:0.00000
+Pass:0, Batch:13700, loss:7.08323, loss_cls:4.56380, loss_aux:2.51943, acc_cls:0.25000, acc_aux:0.00000
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 20:04:45,488-ERROR: Error when loading /root/paddlejob/workspace/datasets/train_256/eating_hotdog/lk5Ap5gZNj0_000009_000019.mp4
+Error when loading /root/paddlejob/workspace/datasets/train_256/eating_hotdog/lk5Ap5gZNj0_000009_000019.mp4
+Pass:0, Batch:13800, loss:7.19601, loss_cls:4.67682, loss_aux:2.51919, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:13900, loss:8.78149, loss_cls:5.97054, loss_aux:2.81095, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:14000, loss:8.40726, loss_cls:5.74044, loss_aux:2.66682, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:14100, loss:7.64832, loss_cls:5.23917, loss_aux:2.40915, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:14200, loss:6.63457, loss_cls:4.38971, loss_aux:2.24486, acc_cls:0.00000, acc_aux:0.25000
+Pass:0, Batch:14300, loss:6.86402, loss_cls:4.56878, loss_aux:2.29524, acc_cls:0.00000, acc_aux:0.25000
+Pass:0, Batch:14400, loss:6.70616, loss_cls:4.41590, loss_aux:2.29027, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:14500, loss:6.44008, loss_cls:4.16847, loss_aux:2.27161, acc_cls:0.00000, acc_aux:0.00000
+Pass:0, Batch:14600, loss:8.31906, loss_cls:5.50467, loss_aux:2.81439, acc_cls:0.00000, acc_aux:0.00000
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x7ef04f720080] moov atom not found
+VIDIOC_REQBUFS: Inappropriate ioctl for device
+2020-09-03 21:38:36,740-ERROR: Error when loading /root/paddlejob/workspace/datasets/val_256/crossing_river/ZVdAl-yh9m0.mp4
+Error when loading /root/paddlejob/workspace/datasets/val_256/crossing_river/ZVdAl-yh9m0.mp4
+Test:0, test_cls_lost:7.64227, test_cls_acc:0.05364
+/mnt
+[INFO]: train job success!
+
