@@ -30,7 +30,6 @@ class SimpleConsensus():
         self.dim = dim
 
     def net(self, input):
-        # return _SimpleConsensus(self.consensus_type, self.dim)(input)
         consensus = _SimpleConsensus(self.consensus_type, self.dim)
         return consensus.net(input)
 
