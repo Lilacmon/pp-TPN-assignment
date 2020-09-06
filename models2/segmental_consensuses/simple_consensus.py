@@ -34,12 +34,3 @@ class SimpleConsensus():
         consensus = _SimpleConsensus(self.consensus_type, self.dim)
         return consensus.net(input)
 
-
-if __name__ == '__main__':
-    segmental_consensus=dict(
-                        consensus_type='avg')
-    a = SimpleConsensus(**segmental_consensus)
-    data_shape = [1, 2048, 1, 1, 1]
-    img = fluid.layers.data(name='images', shape=data_shape, dtype='float32')
-    x = a.net(img)
-    print(x.shape) #[-1, 1, 2048, 1, 1, 1]
