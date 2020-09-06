@@ -22,7 +22,6 @@ class ConvModule():
         self.groups=groups
 
     def net(self, x):
-        # out = self.bn(self.conv(x))
         out = fluid.layers.conv3d(input=x, num_filters=self.planes, filter_size=self.kernel_size,
                     stride=self.stride, padding=self.padding, groups=self.groups, bias_attr=self.bias)
         out = fluid.layers.batch_norm(input=out, act='relu')
@@ -44,7 +43,6 @@ class AuxHead():
         if target is None:
             return None
         loss = dict()
-        # x = self.convs(x)
         convM = \
             ConvModule(self.inplanes, self.inplanes * 2, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
         x = convM.net(x)
@@ -179,14 +177,6 @@ class SpatialModulation(fluid.dygraph.Layer):
 
     def net(self, inputs):
         out = []
-        # for i, feature in enumerate(inputs):
-        #     if isinstance(self.spatial_modulation[i], list):
-        #         out_ = inputs[i]
-        #         for III, op in enumerate(self.spatial_modulation[i]):
-        #             out_ = op(out_)
-        #         out.append(out_)
-        #     else:
-        #         out.append(self.spatial_modulation[i](inputs[i]))
         for i, dim in enumerate(self.inplanes):
             ds_factor = self.planes // dim
             ds_num = int(np.log2(ds_factor))
@@ -242,7 +232,6 @@ class TPN():
         outs = spatialm.net(inputs)
 
         # Temporal Modulation
-        # outs = [temporal_modulation(outs[i]) for i, temporal_modulation in enumerate(self.temporal_modulation_ops)]
         outs_t = []
         for i in range(0, self.num_ins, 1):
             inplanes = self.in_channels[-1]
@@ -260,7 +249,6 @@ class TPN():
         # Build top-down flow - upsampling operation
         if self.upsampling_config is not None:
             for i in range(self.num_ins - 1, 0, -1):
-                # outs[i - 1] = outs[i - 1] + self.upsampling_ops[i - 1](outs[i])
                 upsamplingm = Upsampling(self.upsampling_config.get('scale'))
                 outs[i - 1] = outs[i - 1] + upsamplingm.net(outs[i])
 
@@ -273,7 +261,6 @@ class TPN():
         if self.downsampling_config is not None:
             for i in range(0, self.num_ins - 1, 1):
                 planes = self.out_channels
-                # outs[i + 1] = outs[i + 1] + self.downsampling_ops[i](outs[i])
                 self.downsampling_config['param']['inplanes'] = planes
                 self.downsampling_config['param']['planes'] = planes
                 self.downsampling_config['param']['downsample_scale'] = self.downsampling_config['scales']
@@ -285,7 +272,6 @@ class TPN():
         outs = levelfm.net(outs)
 
         # fuse two pyramid outs
-        # outs = self.pyramid_fusion_op(fluid.layers.concat(input=[topdownouts, outs], axis=1))
         outs = fluid.layers.conv3d(input=fluid.layers.concat(input=[topdownouts, outs], axis=1),
                 num_filters=2048, filter_size=1, stride=1, padding=0, bias_attr=False)
         outs = fluid.layers.batch_norm(input=outs, act='relu')
